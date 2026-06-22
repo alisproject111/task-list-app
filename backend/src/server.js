@@ -24,13 +24,21 @@ app.get('/', (req, res) => {
 });
 
 // DB Test Route
-app.get('/api/test-db', async (req, res) => {
+app.get('/api-test', async (req, res) => {
     try {
         const result = await pool.query('SELECT NOW()');
-        res.json({ success: true, time: result.rows[0].now });
+        res.json({ 
+            success: true, 
+            message: 'Database is connected perfectly! ✅',
+            time: result.rows[0].now 
+        });
     } catch (err) {
         console.error(err.message);
-        res.status(500).json({ error: 'Database connection error' });
+        res.status(500).json({ 
+            success: false, 
+            message: 'Database connection error ❌', 
+            error: err.message 
+        });
     }
 });
 
